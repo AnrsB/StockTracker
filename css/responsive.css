@@ -1,0 +1,375 @@
+/* ============================================
+   STOCKTRACKER - Responsive Styles
+   ============================================ */
+
+/* Tablet Screens (768px and below) */
+@media (max-width: 768px) {
+    :root {
+        --spacing-md: 0.75rem;
+        --spacing-lg: 1rem;
+        --spacing-xl: 1.5rem;
+    }
+
+    .navbar-container {
+        padding: var(--spacing-md) var(--spacing-md);
+        flex-wrap: wrap;
+    }
+
+    .navbar-logo {
+        font-size: 1.25rem;
+    }
+
+    .navbar-logo span {
+        display: none;
+    }
+
+    .navbar-menu {
+        margin-left: 0;
+        width: 100%;
+        justify-content: space-around;
+        margin-top: var(--spacing-md);
+        order: 3;
+    }
+
+    .nav-link span {
+        display: none;
+    }
+
+    .nav-link {
+        padding: var(--spacing-sm);
+    }
+
+    .navbar-right {
+        gap: var(--spacing-md);
+    }
+
+    .container {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .welcome-card h1 {
+        font-size: 2rem;
+    }
+
+    .welcome-card > p {
+        font-size: 1rem;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: var(--spacing-lg);
+    }
+
+    .notifications-container {
+        right: var(--spacing-md);
+        left: var(--spacing-md);
+        max-width: none;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    th, td {
+        padding: var(--spacing-sm) var(--spacing-xs);
+    }
+
+    .btn {
+        padding: var(--spacing-xs) var(--spacing-md);
+        font-size: 0.9rem;
+    }
+
+    .card {
+        padding: var(--spacing-md);
+    }
+
+    /* Responsive grid for tables */
+    table.responsive-table {
+        border-collapse: collapse;
+    }
+
+    table.responsive-table thead {
+        display: none;
+    }
+
+    table.responsive-table tbody,
+    table.responsive-table tr,
+    table.responsive-table td {
+        display: block;
+        width: 100%;
+    }
+
+    table.responsive-table tr {
+        margin-bottom: var(--spacing-lg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-md);
+    }
+
+    table.responsive-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    table.responsive-table td:last-child {
+        border-bottom: none;
+    }
+
+    table.responsive-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding: var(--spacing-sm);
+        font-weight: 600;
+        text-align: left;
+    }
+}
+
+/* Mobile Screens (480px and below) */
+@media (max-width: 480px) {
+    :root {
+        --spacing-md: 0.5rem;
+        --spacing-lg: 0.75rem;
+        --spacing-xl: 1rem;
+    }
+
+    .navbar-container {
+        padding: var(--spacing-sm) var(--spacing-sm);
+    }
+
+    .navbar-logo {
+        font-size: 1.1rem;
+    }
+
+    .navbar-logo i {
+        font-size: 1rem;
+    }
+
+    .navbar-menu {
+        gap: var(--spacing-sm);
+    }
+
+    .user-dropdown {
+        right: -var(--spacing-md);
+    }
+
+    .container {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+
+    .welcome-card h1 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-card > p {
+        font-size: 0.95rem;
+    }
+
+    .summary-item label {
+        font-size: 0.85rem;
+    }
+
+    .summary-item .value {
+        font-size: 1.25rem;
+    }
+
+    .modal-content {
+        max-width: 100%;
+        width: 98%;
+        padding: var(--spacing-md);
+    }
+
+    .modal-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .form-group {
+        margin-bottom: var(--spacing-md);
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 0.85rem;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+    }
+
+    .card {
+        padding: var(--spacing-sm);
+    }
+
+    .card-header {
+        margin-bottom: var(--spacing-sm);
+        padding-bottom: var(--spacing-sm);
+    }
+
+    .card-footer {
+        flex-direction: column;
+    }
+
+    .card-footer .btn {
+        width: 100%;
+    }
+
+    .dashboard-grid {
+        gap: var(--spacing-sm);
+    }
+
+    .actions-card .btn {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .notifications-container {
+        right: 0;
+        left: 0;
+        top: var(--spacing-md);
+    }
+
+    .notification {
+        margin-bottom: var(--spacing-sm);
+        padding: var(--spacing-sm);
+        gap: var(--spacing-sm);
+    }
+
+    .notification-message {
+        font-size: 0.9rem;
+    }
+
+    .loading-indicator p {
+        font-size: 1rem;
+    }
+
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border-width: 3px;
+    }
+}
+
+/* Extra Small Screens (320px and below) */
+@media (max-width: 320px) {
+    body {
+        font-size: 14px;
+    }
+
+    .navbar-container {
+        padding: var(--spacing-xs) var(--spacing-xs);
+    }
+
+    .navbar-logo {
+        font-size: 1rem;
+    }
+
+    .container {
+        padding: var(--spacing-xs) var(--spacing-xs);
+    }
+
+    .welcome-card h1 {
+        font-size: 1.25rem;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .navbar-menu,
+    .theme-toggle,
+    .user-menu,
+    .notifications-container,
+    .loading-indicator,
+    .actions-card {
+        display: none !important;
+    }
+
+    body {
+        background-color: white;
+    }
+
+    .card,
+    .modal-content {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+    }
+}
+
+/* Landscape Orientation */
+@media (orientation: landscape) and (max-height: 500px) {
+    .navbar {
+        padding: var(--spacing-sm) 0;
+    }
+
+    .container {
+        padding: var(--spacing-sm) var(--spacing-lg);
+    }
+
+    .welcome-card h1 {
+        margin-bottom: var(--spacing-sm);
+        font-size: 1.5rem;
+    }
+
+    .welcome-card > p {
+        margin-bottom: var(--spacing-md);
+        font-size: 0.9rem;
+    }
+}
+
+/* High DPI / Retina Display Support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .btn,
+    .card,
+    .modal-content {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Reduced Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark Mode Media Query Support */
+@media (prefers-color-scheme: dark) {
+    body:not(.light-mode) {
+        --bg-color: var(--dark-bg);
+        --card-bg: var(--dark-card-bg);
+        --text-color: var(--dark-text);
+        --muted-color: var(--dark-muted);
+        --border-color: var(--dark-border);
+    }
+}

@@ -1,0 +1,284 @@
+<!-- ============================================
+     WALLET.HTML - Portfolio & Holdings Page
+     ============================================ -->
+
+<div id="page-wallet" class="page" style="display: none;">
+    <div class="container">
+        <!-- Page Header -->
+        <div style="margin-bottom: var(--spacing-xl);">
+            <h1>My Wallet</h1>
+            <p class="text-muted">Track your portfolio performance and manage holdings</p>
+        </div>
+
+        <!-- Portfolio Summary -->
+        <div id="portfolio-summary" style="margin-bottom: var(--spacing-xl);"></div>
+
+        <!-- Tabs -->
+        <div class="card" style="margin-bottom: var(--spacing-lg);">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="holdings">
+                    <i class="fas fa-coins"></i> Current Holdings
+                </button>
+                <button class="tab-button" data-tab="sold">
+                    <i class="fas fa-history"></i> Sold Stocks
+                </button>
+            </div>
+
+            <!-- Holdings Tab -->
+            <div id="holdings-tab" class="tab-content active">
+                <div style="margin-bottom: var(--spacing-lg);">
+                    <button class="btn btn-primary" onclick="Wallet.showAddStockForm()">
+                        <i class="fas fa-plus"></i> Add Stock
+                    </button>
+                </div>
+
+                <div class="holdings-table-container">
+                    <table class="holdings-table responsive-table">
+                        <thead>
+                            <tr>
+                                <th>Ticker</th>
+                                <th>Quantity</th>
+                                <th>Avg Cost</th>
+                                <th>Current Price</th>
+                                <th>Current Value</th>
+                                <th>Gain/Loss</th>
+                                <th>Gain/Loss %</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="holdings-table-body">
+                            <tr>
+                                <td colspan="8" style="text-align: center; padding: var(--spacing-lg);">
+                                    <div class="empty-state">
+                                        <i class="fas fa-wallet"></i>
+                                        <h3>No holdings yet</h3>
+                                        <p>Add your first stock to start building your portfolio.</p>
+                                        <button class="btn btn-primary" onclick="Wallet.showAddStockForm()">
+                                            Add Stock
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sold Stocks Tab -->
+            <div id="sold-tab" class="tab-content">
+                <div class="holdings-table-container">
+                    <table class="holdings-table responsive-table">
+                        <thead>
+                            <tr>
+                                <th>Ticker</th>
+                                <th>Quantity</th>
+                                <th>Buy Price</th>
+                                <th>Sell Price</th>
+                                <th>Total Gain/Loss</th>
+                                <th>Gain/Loss %</th>
+                                <th>Date Sold</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sold-table-body">
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: var(--spacing-lg);">
+                                    <div class="empty-state">
+                                        <i class="fas fa-history"></i>
+                                        <h3>No sold stocks yet</h3>
+                                        <p>Sold stocks will appear here.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Stock Modal -->
+<div id="add-stock-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modal-title">Add Stock to Wallet</h2>
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <form id="add-stock-form" class="modal-body">
+            <div class="transaction-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="stock-ticker">Ticker <span style="color: var(--danger-color);">*</span></label>
+                        <input type="text" 
+                               id="stock-ticker" 
+                               name="ticker" 
+                               placeholder="e.g., AAPL"
+                               readonly
+                               style="background-color: var(--border-color); cursor: not-allowed;">
+                        <small>Selected stock ticker</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="buy-date">Purchase Date <span style="color: var(--danger-color);">*</span></label>
+                        <input type="date" 
+                               id="buy-date" 
+                               name="buyDate" 
+                               required>
+                        <small>Date you purchased this stock</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="buy-price">Price Per Share <span style="color: var(--danger-color);">*</span></label>
+                        <input type="number" 
+                               id="buy-price" 
+                               name="buyPrice" 
+                               placeholder="0.00" 
+                               step="0.01"
+                               min="0"
+                               required>
+                        <small>Purchase price per share</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="quantity">Quantity <span style="color: var(--danger-color);">*</span></label>
+                        <input type="number" 
+                               id="quantity" 
+                               name="quantity" 
+                               placeholder="0" 
+                               step="1"
+                               min="1"
+                               required>
+                        <small>Number of shares</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Cost</label>
+                        <input type="text" 
+                               id="total-cost" 
+                               readonly
+                               style="background-color: var(--border-color); cursor: not-allowed;">
+                        <small>Calculated: Price × Quantity</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" 
+                                  name="notes" 
+                                  placeholder="Add any notes about this purchase..."
+                                  rows="3"></textarea>
+                        <small>Optional notes</small>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="modal-footer">
+            <button class="btn btn-secondary modal-close">Cancel</button>
+            <button class="btn btn-primary" id="save-stock-btn">
+                <i class="fas fa-check"></i> Add Stock
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Sell Stock Modal -->
+<div id="sell-stock-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Sell Stock</h2>
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <form id="sell-stock-form" class="modal-body">
+            <div class="transaction-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Ticker</label>
+                        <input type="text" 
+                               id="sell-ticker" 
+                               readonly
+                               style="background-color: var(--border-color); cursor: not-allowed;">
+                    </div>
+                    <div class="form-group">
+                        <label>Available Quantity</label>
+                        <input type="text" 
+                               id="available-quantity" 
+                               readonly
+                               style="background-color: var(--border-color); cursor: not-allowed;">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sell-quantity">Quantity to Sell <span style="color: var(--danger-color);">*</span></label>
+                        <input type="number" 
+                               id="sell-quantity" 
+                               name="quantity" 
+                               placeholder="0" 
+                               step="1"
+                               min="1"
+                               required>
+                        <small>Number of shares to sell</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="sell-price">Sell Price Per Share <span style="color: var(--danger-color);">*</span></label>
+                        <input type="number" 
+                               id="sell-price" 
+                               name="sellPrice" 
+                               placeholder="0.00" 
+                               step="0.01"
+                               min="0"
+                               required>
+                        <small>Price per share when selling</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Total Proceeds</label>
+                        <input type="text" 
+                               id="total-proceeds" 
+                               readonly
+                               style="background-color: var(--border-color); cursor: not-allowed;">
+                        <small>Calculated: Quantity × Sell Price</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Estimated Gain/Loss</label>
+                        <input type="text" 
+                               id="estimated-gain" 
+                               readonly
+                               style="background-color: var(--border-color); cursor: not-allowed;">
+                        <small>Calculated gain or loss</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sell-date">Sale Date <span style="color: var(--danger-color);">*</span></label>
+                        <input type="date" 
+                               id="sell-date" 
+                               name="saleDate" 
+                               required>
+                        <small>Date you sold this stock</small>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="modal-footer">
+            <button class="btn btn-secondary modal-close">Cancel</button>
+            <button class="btn btn-danger" id="save-sell-btn">
+                <i class="fas fa-check"></i> Sell Stock
+            </button>
+        </div>
+    </div>
+</div>

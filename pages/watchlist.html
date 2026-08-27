@@ -1,0 +1,68 @@
+<!-- ============================================
+     WATCHLIST.HTML - Watchlist Management Page
+     ============================================ -->
+
+<div id="page-watchlist" class="page" style="display: none;">
+    <div class="container">
+        <!-- Page Header -->
+        <div style="margin-bottom: var(--spacing-xl); display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1>My Watchlist</h1>
+                <p class="text-muted">Monitor stocks you're interested in</p>
+            </div>
+            <button class="btn btn-primary" onclick="App.showPage('search')">
+                <i class="fas fa-plus"></i> Add Stock
+            </button>
+        </div>
+
+        <!-- Filters & Controls -->
+        <div class="card" style="margin-bottom: var(--spacing-lg);">
+            <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap; align-items: center;">
+                <div style="flex: 1; min-width: 200px;">
+                    <input type="text" 
+                           id="watchlist-search" 
+                           placeholder="Filter by ticker or name..." 
+                           class="form-control"
+                           style="width: 100%; padding: var(--spacing-sm) var(--spacing-md);">
+                </div>
+                <select id="watchlist-sort" class="form-control" style="min-width: 150px; padding: var(--spacing-sm) var(--spacing-md);">
+                    <option value="name">Sort by Name</option>
+                    <option value="price">Sort by Price</option>
+                    <option value="change">Sort by Change %</option>
+                    <option value="added">Sort by Date Added</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Watchlist Table -->
+        <div class="holdings-table-container">
+            <table class="holdings-table responsive-table">
+                <thead>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Company</th>
+                        <th>Price</th>
+                        <th>Change</th>
+                        <th>Change %</th>
+                        <th>Date Added</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="watchlist-table-body">
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: var(--spacing-lg);">
+                            <div class="empty-state">
+                                <i class="fas fa-bookmark"></i>
+                                <h3>No watchlist items yet</h3>
+                                <p>Start adding stocks to your watchlist to monitor their performance.</p>
+                                <button class="btn btn-primary" onclick="App.showPage('search')">
+                                    Search Stocks
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
