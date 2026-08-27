@@ -201,6 +201,59 @@ app.post('/api/cache/clear', (req, res) => {
     res.json({ message: 'Cache cleared' });
 });
 
+// Catch-all for Alpha Vantage format queries (main /)
+app.get('/', async (req, res) => {
+    try {
+        const func = req.query.function;
+        const symbol = req.query.symbol?.toUpperCase();
+        
+        if (!func) {
+            return res.status(400).json({ error: 'Missing function parameter' });
+        }
+
+        // Build cache key from function and symbol
+        const cacheKey = symbol ? `${func}_${symbol}` : func;
+        
+        // Check cache first
+        const cached = cache.get(cacheKey);
+        if (cached) {
+            console.log(`Cache HIT for ${func} ${symbol || ''}`);
+            return res.json(cached);
+        }
+
+        console.log(`Cache MISS for ${func} ${symbol || ''} - calling Alpha Vantage`);
+        
+        // Forward all query params to Alpha Vantage (except apikey, replace with ours)
+        const params = { ...req.query };
+        params.apikey = ALPHA_VANTAGE_KEY;
+        
+        const response = await axios.get('https://www.alphavantage.co/query', {
+            params,
+            timeout: 10000
+        });
+
+        const data = response.data;
+
+        // Check for rate limit/errors
+        if (data.Note || data.Information) {
+            console.warn(`Alpha Vantage: ${data.Note || data.Information}`);
+            return res.status(429).json(data);
+        }
+
+        if (data.Error) {
+            console.warn(`Alpha Vantage error: ${data.Error}`);
+            return res.status(400).json(data);
+        }
+
+        // Cache successful response
+        cache.set(cacheKey, data);
+        res.json(data);
+    } catch (error) {
+        console.error('Query error:', error.message);
+        res.status(500).json({ error: 'Failed to process request', message: error.message });
+    }
+});
+
 // 404 handler
 app.use((req, res) => {
     res.status(404).json({ error: 'Endpoint not found' });
