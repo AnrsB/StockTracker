@@ -16,11 +16,11 @@ const CONFIG = {
         measurementId: "G-5ML1TECRMM"
     },
 
-    // Alpha Vantage API Configuration (Free tier with CORS support)
-    // Sign up at: https://www.alphavantage.co (free tier = $0, unlimited requests)
+    // Alpha Vantage API Configuration via Proxy (caching enabled)
+    // Proxy server runs on Render.com for rate limit handling
     alphavantage: {
-        apiKey: '1NFJ0HLMWTJC05C3', // Get free key from https://www.alphavantage.co/api/ (default 'demo' for testing)
-        baseUrl: 'https://www.alphavantage.co/query'
+        apiKey: 'proxy', // Using proxy server for caching
+        baseUrl: 'https://stocktracker-api-proxy.onrender.com'
     },
 
     // Application Settings
